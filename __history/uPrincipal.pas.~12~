@@ -1,0 +1,84 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, uDTMConexao;
+
+type
+  TfrmPrincipal = class(TForm)
+    mainPrincipal: TMainMenu;
+    CADASTRO1: TMenuItem;
+    MOVIMENTAO1: TMenuItem;
+    RELATRIOS1: TMenuItem;
+    CLIENTES1: TMenuItem;
+    CLIENTES2: TMenuItem;
+    CATEGORIA1: TMenuItem;
+    PRODUTO1: TMenuItem;
+    PRODUTO2: TMenuItem;
+    mnuFechar: TMenuItem;
+    VENDAS1: TMenuItem;
+    CLIENTE1: TMenuItem;
+    N1: TMenuItem;
+    N2: TMenuItem;
+    N3: TMenuItem;
+    N4: TMenuItem;
+    procedure mnuFecharClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure CATEGORIA1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+uses uCadCategoria;
+
+procedure TfrmPrincipal.CATEGORIA1Click(Sender: TObject);
+begin
+  frmCadCategoria:=tfrmCadCategoria.Create(Self);
+  frmCadCategoria.ShowModal;
+  frmCadCategoria.Release;
+end;
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+{
+  dtmPrincipal := TdtmPrincipal.Create(Self);
+  dtmPrincipal.ConexaoDB.SQLHourGlass:=True;
+  dtmPrincipal.ConexaoDB.Protocol:='mssql';
+  dtmPrincipal.ConexaoDB.LibraryLocation:='C:\Users\Danilo\Documents\Delphi\Primeiro Projeto\ntwdblib.dll';
+  dtmPrincipal.ConexaoDB.HostName:='.\SQLEXPRESS';
+  dtmPrincipal.ConexaoDB.Port:=1433;
+  dtmPrincipal.ConexaoDB.Database:='VENDAS';
+  dtmPrincipal.ConexaoDB.Connected:=True;
+}
+  dtmPrincipal := TdtmPrincipal.Create(Self);
+  with dtmPrincipal.ConexaoDB do
+  begin
+    SQLHourGlass:=True;
+    Protocol:='mssql';
+    LibraryLocation:='C:\Users\Danilo\Documents\Delphi\Primeiro Projeto\ntwdblib.dll';
+    HostName:='.\SQLEXPRESS';
+    Port:=1433;
+    Database:='VENDAS';
+    Connected:=True;
+  end;
+
+end;
+
+procedure TfrmPrincipal.mnuFecharClick(Sender: TObject);
+begin
+  //Close;
+  Application.Terminate;
+end;
+
+end.
